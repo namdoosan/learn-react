@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AuthPage from "../pages/index.jsx";
-import HomePage from "../home/index.jsx";
+import AuthPage from "../pages/auth/index.jsx";
+import HomePage from "../pages/home/index.jsx";
 
 export default function Router() {
   return (
