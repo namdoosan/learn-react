@@ -5,7 +5,8 @@ export default function HomePage() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    navigate("/");
+    navigate("/"); // Navigate back to the login page
+    // Optionally, you can clear any authentication state here
   };
 
   return (
