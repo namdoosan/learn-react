@@ -18,19 +18,16 @@
   transition: border-color 0.2s, background-color 0.2s;
 }
 
-/* efek saat fokus */
 .input-field:focus {
   border-color: #4a90e2;
   background-color: #f0f8ff;
   outline: none;
 }
 
-/* efek saat hover */
 .input-field:hover {
   border-color: #7aa7e9;
 }
 
-/* efek saat disabled */
 .input-field:disabled {
   background-color: #eee;
   cursor: not-allowed;
