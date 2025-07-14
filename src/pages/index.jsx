@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
-import "./AuthPage.css"; // Import CSS for styling
 import Input from "../components/Input/Input";
 import Button from "../components/Button/Button";
 
