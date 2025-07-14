@@ -1,0 +1,29 @@
+.button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4a90e2;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  font-size: 16px;
+}
+
+/* hover */
+.button:hover {
+  background-color: #357ac8;
+}
+
+/* tekan (active) */
+.button:active {
+  transform: scale(0.98);
+}
+
+/* focus */
+.button:focus {
+  outline: 2px solid #a1c4fd;
+}
+
+/* disabled

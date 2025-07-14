@@ -1,0 +1,38 @@
+.input-group {
+  margin-bottom: 16px;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 6px;
+  color: #333;
+  font-size: 16px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+/* efek saat fokus */
+.input-field:focus {
+  border-color: #4a90e2;
+  background-color: #f0f8ff;
+  outline: none;
+}
+
+/* efek saat hover */
+.input-field:hover {
+  border-color: #7aa7e9;
+}
+
+/* efek saat disabled */
+.input-field:disabled {
+  background-color: #eee;
+  cursor: not-allowed;
+  color: #888;
+}
