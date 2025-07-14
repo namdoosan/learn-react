@@ -1,16 +1,15 @@
 import "./Input.css";
 
-export default function Input({ label, type, value, onChange }) {
+export default function Input({ label, name, value, onChange, type = "text", required }) {
   return (
-    <div className="input-group">
-      <label className="input-label">
-        {label}
-      </label>
+    <div className="form-group">
+      <label>{label}</label>
       <input
         type={type}
+        name={name}
         value={value}
         onChange={onChange}
-        className="input-field"
+        required={required}
       />
     </div>
   );
