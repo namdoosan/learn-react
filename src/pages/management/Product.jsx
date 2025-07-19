@@ -99,8 +99,8 @@ export default function ProductPage() {
 
   return (
     <div className="h-[calc(100vh-120px)] px-0 py-0 overflow-y-auto font-sans">
-      <div className="bg-white/100 backdrop-blur-md px-6 py-4 rounded-b-xl
-                      shadow-lg shadow-gray-200/50 sticky top-0 z-10 border-b border-gray-100">
+      <div className="bg-white/100  px-6 py-4 rounded-b-xl
+                      shadow-lg shadow-gray-200/100 sticky top-0 z-50 border-b border-gray-100">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="relative w-full md:w-auto flex-grow">
             <IoSearchOutline className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
