@@ -33,11 +33,13 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-800">
+    <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-800 p-4"> {/* Tambahkan padding bottom jika perlu */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-blue-500 opacity-20 rounded-full mix-blend-screen filter blur-3xl animate-blob"></div>
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-orange-500 opacity-20 rounded-full mix-blend-screen filter blur-3xl animate-blob animation-delay-2000"></div>
       <div className="absolute top-1/4 right-[5%] w-60 h-60 bg-purple-500 opacity-20 rounded-full mix-blend-screen filter blur-3xl animate-blob animation-delay-4000"></div>
-      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center bg-white bg-opacity-95 backdrop-filter backdrop-blur-md border border-gray-200 shadow-2xl shadow-blue-900/50 rounded-xl w-[95%] max-w-5xl p-6 lg:p-10 transform transition-all duration-300">
+
+      {/* Main content container (image + form) */}
+      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center bg-white bg-opacity-95 backdrop-filter backdrop-blur-md border border-gray-200 shadow-2xl shadow-blue-900/50 rounded-xl w-[95%] max-w-5xl p-6 lg:p-10 transform transition-all duration-300 mb-8"> {/* Ditambah mb-8 untuk jarak dengan footer */}
         <div className="lg:w-1/2 flex items-center justify-center p-4 lg:p-8 order-2 lg:order-1">
           <img
             src={ShoPediaLogo}
@@ -86,12 +88,18 @@ export default function AuthPage() {
             <div className="flex justify-center mt-4">
               <Button
                 type="submit"
-                className="bg-blue-600 text-white text-center w-full py-3 rounded-lg font-bold text-lg tracking-wide shadow-lg shadow-blue-500/50 hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300">Sign In
+                className="bg-blue-600 text-white text-center w-full py-3 rounded-lg font-bold text-lg tracking-wide shadow-lg shadow-blue-500/50 hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300"
+              >
+                Sign In
               </Button>
             </div>
-            
           </form>
         </div>
+      </div>
+
+      {/* Copyright Text */}
+      <div className="relative z-10 text-white text-sm opacity-80 mt-auto pb-4"> {/* mt-auto untuk dorong ke bawah, pb-4 untuk padding bawah */}
+        ©2025 Clarisca . All Right Reserved
       </div>
     </div>
   );
