@@ -17,18 +17,11 @@ export default function Router() {
 
         <Route element={<ProtectedRoute />}>
           <Route element={<MainLayout />}>
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/manage-product" element={<ProductPage />} />
-            <Route element={<ProtectedRoute />}>
-              <Route element={<MainLayout />}>
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/manage-product" element={<ProductPage />} />
                 <Route element={<RoleRoute allowedRoles={["manager"]} />}>
                   <Route path="/manage-user" element={<ManageUserPage />} />
                 </Route>
-                <Route path="/management/product/:id" element={<ProductDetailPage />} />
-              </Route>
-            </Route>
             <Route path="/management/product/:id" element={<ProductDetailPage />} />
           </Route>
         </Route>
