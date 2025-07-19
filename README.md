@@ -38,7 +38,7 @@ This project is built with:
 
 ## 🛠️ Getting Started
 
-Make sure you have [`pnpm`](https://pnpm.io/) installed and are connected to GitHub.
+Make sure you have [`npm`](https://www.npmjs.com/) installed and are connected to GitHub.
 
 ```bash
 # Clone this repository
@@ -48,10 +48,10 @@ git clone https://github.com/namdoosan/learn-react.git
 cd learn-react
 
 # Install dependencies
-pnpm install
+npm install
 
 # Start the development server
-pnpm run dev
+npm run dev
 
 #Dummy data users
 You can use the following credentials to log in:
