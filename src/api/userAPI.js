@@ -1,17 +1,19 @@
+// src/api/userAPI.js
+import { BASE_URL } from "./baseURL";
+
 export const fetchUsers = async () => {
-  try {
-    const response = await fetch("https://dummyjson.com/users");
-    const result = await response.json();
-    // mapping supaya sesuai fieldnya dengan fullname, email, dll
-    return result.users.map((user) => ({
-      fullname: `${user.firstName} ${user.lastName}`,
-      email: user.email,
-      gender: user.gender,
-      age: user.age,
-      ip: user.ip || "127.0.0.1", // dummy IP karena API gak punya IP
-    }));
-  } catch (error) {
-    console.error("Gagal fetch users:", error);
-    return [];
+  const response = await fetch(`${BASE_URL}/users`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch users: ${response.status}`);
   }
+
+  const result = await response.json();
+  return result.users.map((user) => ({
+    id: user.id, 
+    fullname: `${user.firstName} ${user.lastName}`, 
+    email: user.email,
+    phone: user.phone,
+    image: user.image, 
+  }));
 };
+
