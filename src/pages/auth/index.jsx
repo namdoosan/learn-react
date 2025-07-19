@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// Ganti FiMail dengan ikon hati dari react-icons atau simbol Unicode
-import { FiHeart } from "react-icons/fi"; // Pastikan react-icons terinstal dan FiHeart tersedia
-// Jika FiHeart tidak ada atau ingin hati yang lebih "penuh", Anda bisa gunakan:
-// import { IoHeart } from "react-icons/io5";
+import { MdOutlineSecurity, MdLockOutline } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
 import Input from "@/components/Input/Input";
 import Button from "@/components/Button/Button";
-// import cloudBg from "@/assets/cloud.jpg"; // Tidak digunakan lagi
+import ShoPediaLogo from "@/assets/ShoPedia.png";
 
 export default function AuthPage() {
   const [username, setUsername] = useState("");
@@ -35,73 +33,65 @@ export default function AuthPage() {
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
-      // Latar belakang gradien pink-ungu
-      style={{
-        backgroundImage: 'linear-gradient(to bottom right, #FFC0CB, #FF69B4, #9370DB)', // Pink, Hot Pink, MediumPurple
-        // Alternatif gradien dengan warna Tailwind:
-        // backgroundImage: 'linear-gradient(to bottom right, theme(colors.pink.200), theme(colors.pink.400), theme(colors.purple.300))',
-      }}
-    >
-      {/* Efek glitter atau sparkle background (opsional) */}
-      <div className="absolute inset-0 z-0 opacity-20"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='1' fill='%23FFFFFF' opacity='0.7'/%3E%3C/svg%3E")`,
-          backgroundSize: '10px 10px',
-        }}
-      ></div>
-
-      {/* Bentuk hati dan sparkle yang bergerak sebagai dekorasi */}
-      <div className="absolute top-[10%] left-[10%] text-pink-300 text-6xl animate-pulse delay-75">💖</div>
-      <div className="absolute bottom-[20%] right-[15%] text-purple-200 text-5xl animate-float delay-100">✨</div>
-      <div className="absolute top-[30%] right-[5%] text-pink-400 text-4xl animate-sparkle delay-200">❤️</div>
-      <div className="absolute bottom-[5%] left-[5%] text-purple-300 text-7xl animate-pulse delay-300">💜</div>
-      <div className="absolute top-[50%] left-[25%] text-pink-200 text-5xl animate-float delay-150">🌟</div>
-
-      <div className="relative z-10 backdrop-blur-lg bg-pink-50/80 border border-pink-200 shadow-2xl shadow-pink-300/60 rounded-3xl w-[90%] max-w-sm p-8 transform transition-all duration-300 hover:scale-[1.02]">
-        <div className="flex flex-col items-center">
-          <div className="bg-pink-400 shadow-lg rounded-full p-4 mb-4 transform -rotate-6 hover:rotate-0 transition-transform duration-300">
-            {/* Mengganti ikon */}
-            <FiHeart className="text-3xl text-white drop-shadow-md" />
-            {/* Alternatif jika FiHeart tidak tersedia, atau ingin hati Unicode */}
-            {/* <span className="text-3xl text-white">❤️</span> */}
-          </div>
-          <h2 className="text-3xl font-extrabold text-center text-pink-700 mb-2 font-['Pacifico', cursive] drop-shadow-sm">Welcome To Lovepedia</h2>
-          <p className="text-center text-base text-pink-600 mb-6 font-semibold">Please, Sign In First with Love!</p>
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-800">
+      <div className="absolute top-0 left-0 w-72 h-72 bg-blue-500 opacity-20 rounded-full mix-blend-screen filter blur-3xl animate-blob"></div>
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-orange-500 opacity-20 rounded-full mix-blend-screen filter blur-3xl animate-blob animation-delay-2000"></div>
+      <div className="absolute top-1/4 right-[5%] w-60 h-60 bg-purple-500 opacity-20 rounded-full mix-blend-screen filter blur-3xl animate-blob animation-delay-4000"></div>
+      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center bg-white bg-opacity-95 backdrop-filter backdrop-blur-md border border-gray-200 shadow-2xl shadow-blue-900/50 rounded-xl w-[95%] max-w-5xl p-6 lg:p-10 transform transition-all duration-300">
+        <div className="lg:w-1/2 flex items-center justify-center p-4 lg:p-8 order-2 lg:order-1">
+          <img
+            src={ShoPediaLogo}
+            alt="ShoPedia Logo"
+            className="w-full max-w-xs md:max-w-sm lg:max-w-md h-auto object-contain transform transition-transform duration-500 hover:scale-105"
+            loading="lazy"
+          />
         </div>
 
-        <form onSubmit={handleLogin} className="flex flex-col gap-5">
-          <Input
-            label="Username"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            type="text"
-            required
-            className="w-full px-4 py-2 border-2 border-pink-300 rounded-lg text-pink-800 placeholder-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-500 transition-all duration-200 bg-pink-100/60 shadow-inner"
-          />
-
-          <Input
-            label="Password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            required
-            className="w-full px-4 py-2 border-2 border-pink-300 rounded-lg text-pink-800 placeholder-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-500 transition-all duration-200 bg-pink-100/60 shadow-inner"
-          />
-
-          <div className="flex justify-center mt-4">
-            <Button
-              type="submit"
-              // Menggunakan warna pink dari palet baru
-              className="bg-pink-500 text-white text-center w-full py-3 rounded-full font-bold text-lg tracking-wide shadow-lg shadow-pink-400/50 hover:bg-pink-600 transition-all duration-300 transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-pink-300"
-            >
-              ❤️ Login ❤️
-            </Button>
+        <div className="lg:w-1/2 p-6 md:p-8 order-1 lg:order-2">
+          <div className="flex flex-col items-center">
+            <div className="bg-blue-600 text-white shadow-xl rounded-full p-4 mb-4 transform -rotate-6 hover:rotate-0 transition-transform duration-300">
+              <MdOutlineSecurity className="text-4xl" />
+            </div>
+            <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-2 font-['Inter', sans-serif] drop-shadow-sm tracking-tight">
+              Login to Your Account
+            </h2>
+            <p className="text-center text-base text-gray-600 mb-6 font-medium">
+              Access your dashboard with ease.
+            </p>
           </div>
-        </form>
+
+          <form onSubmit={handleLogin} className="flex flex-col gap-5">
+            <Input
+              label="Username"
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              type="text"
+              required
+              icon={<FaUserCircle className="text-gray-400" />}
+              className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500 transition-all duration-200 bg-gray-50 shadow-inner"
+            />
+
+            <Input
+              label="Password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              required
+              icon={<MdLockOutline className="text-gray-400" />}
+              className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500 transition-all duration-200 bg-gray-50 shadow-inner"
+            />
+
+            <div className="flex justify-center mt-4">
+              <Button
+                type="submit"
+                className="bg-blue-600 text-white text-center w-full py-3 rounded-lg font-bold text-lg tracking-wide shadow-lg shadow-blue-500/50 hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300">Sign In
+              </Button>
+            </div>
+            
+          </form>
+        </div>
       </div>
     </div>
   );
