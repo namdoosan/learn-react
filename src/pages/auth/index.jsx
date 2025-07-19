@@ -5,10 +5,13 @@ import { FaUserCircle } from "react-icons/fa";
 import Input from "@/components/Input/Input";
 import Button from "@/components/Button/Button";
 import ShoPediaLogo from "@/assets/ShoPedia.png";
+import ErrorPopup from "@/components/Popup/ErrorPopup"; // Import ErrorPopup
 
 export default function AuthPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showErrorPopup, setShowErrorPopup] = useState(false); // State untuk ErrorPopup
+  const [errorMessage, setErrorMessage] = useState(""); // State untuk pesan ErrorPopup
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -22,7 +25,9 @@ export default function AuthPage() {
     } else if (username === "Admin" && password === "admin123") {
       role = "admin";
     } else {
-      alert("Username atau password salah!");
+      // Mengganti alert dengan menampilkan ErrorPopup
+      setErrorMessage("Username atau password salah!");
+      setShowErrorPopup(true);
       return;
     }
 
@@ -32,14 +37,19 @@ export default function AuthPage() {
     navigate("/home", { state: { username } });
   };
 
+  const handleCloseErrorPopup = () => {
+    setShowErrorPopup(false);
+    setErrorMessage("");
+  };
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-800 p-4"> {/* Tambahkan padding bottom jika perlu */}
+    <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-800 p-4">
       <div className="absolute top-0 left-0 w-72 h-72 bg-blue-500 opacity-20 rounded-full mix-blend-screen filter blur-3xl animate-blob"></div>
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-orange-500 opacity-20 rounded-full mix-blend-screen filter blur-3xl animate-blob animation-delay-2000"></div>
       <div className="absolute top-1/4 right-[5%] w-60 h-60 bg-purple-500 opacity-20 rounded-full mix-blend-screen filter blur-3xl animate-blob animation-delay-4000"></div>
 
       {/* Main content container (image + form) */}
-      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center bg-white bg-opacity-95 backdrop-filter backdrop-blur-md border border-gray-200 shadow-2xl shadow-blue-900/50 rounded-xl w-[95%] max-w-5xl p-6 lg:p-10 transform transition-all duration-300 mb-8"> {/* Ditambah mb-8 untuk jarak dengan footer */}
+      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center bg-white bg-opacity-95 backdrop-filter backdrop-blur-md border border-gray-200 shadow-2xl shadow-blue-900/50 rounded-xl w-[95%] max-w-5xl p-6 lg:p-10 transform transition-all duration-300 mb-8">
         <div className="lg:w-1/2 flex items-center justify-center p-4 lg:p-8 order-2 lg:order-1">
           <img
             src={ShoPediaLogo}
@@ -98,9 +108,17 @@ export default function AuthPage() {
       </div>
 
       {/* Copyright Text */}
-      <div className="relative z-10 text-white text-sm opacity-80 mt-auto pb-4"> {/* mt-auto untuk dorong ke bawah, pb-4 untuk padding bawah */}
+      <div className="relative z-10 text-white text-sm opacity-80 mt-auto pb-4">
         ©2025 Clarisca . All Right Reserved
       </div>
+
+      {/* Error Popup */}
+      {showErrorPopup && (
+        <ErrorPopup
+          message={errorMessage}
+          onClose={handleCloseErrorPopup}
+        />
+      )}
     </div>
   );
 }
