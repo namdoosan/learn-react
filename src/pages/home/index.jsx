@@ -1,78 +1,53 @@
-import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-// import MainLayout from "@/components/Layout/MainLayout"; // Ini diasumsikan HomePage dirender di dalam Outlet MainLayout
+import { useLocation } from "react-router-dom";
+import { MdOutlineAttachMoney, MdOutlineInventory } from "react-icons/md";
+import { FaUsers } from "react-icons/fa";
 
 export default function HomePage() {
   const [username, setUsername] = useState("");
   const location = useLocation();
 
-  // Data dummy untuk dashboard
-  const dashboardData = {
-    totalSales: 5, // Misal: 5 biji
-    totalIncomingItems: 10, // Misal: 10 barang
-    // Bisa tambahkan data dummy lain jika mau
-    // totalCustomers: 120,
-    // pendingOrders: 3,
-  };
+  const dashboardData = { totalSales: 1250, revenue: 752000, totalProducts: 45, newOrders: 8 };
 
   useEffect(() => {
-    if (location.state?.username) {
-      setUsername(location.state.username);
-    } else {
-      // Fallback jika username tidak ada di state, coba dari session storage
-      const storedUser = sessionStorage.getItem("username");
-      if (storedUser) {
-        setUsername(storedUser);
-      }
-    }
+    const storedUser = sessionStorage.getItem("username");
+    if (storedUser) setUsername(storedUser);
+    else if (location.state?.username) setUsername(location.state.username);
   }, [location.state]);
 
+  const formatCurrency = (amount) =>
+  
+    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0 }).format(amount);
+
+  const Card = ({ title, icon: Icon, value, subtitle, bgClass }) => (
+    <div className={`bg-gradient-to-br ${bgClass} rounded-xl shadow-lg p-6 flex flex-col items-start justify-between text-white transform transition-transform duration-300 hover:scale-[1.02]`}>
+      <div className="flex items-center justify-between w-full mb-3">
+        <h2 className="text-xl font-bold">{title}</h2>
+        <Icon className="text-4xl opacity-70" />
+      </div>
+      <p className="text-4xl font-extrabold animate-pulse">{value}</p>
+      <p className="text-white/80 mt-2">{subtitle}</p>
+    </div>
+  );
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-10rem)] p-6">
-      {/* Kartu Selamat Datang */}
-      <div className="bg-pink-100/70 backdrop-blur-md rounded-3xl shadow-xl shadow-pink-200/50 p-8 text-center max-w-2xl w-full border border-pink-200 mb-8 transform transition-transform duration-300 hover:scale-[1.01]">
-        <h1 className="text-4xl font-extrabold text-pink-700 mb-4 font-['Pacifico', cursive] drop-shadow-md">
-          Welcome, Sweet {username || "Guest"}!
+    <div className="flex flex-col items-center justify-center p-6 font-sans">
+      <div className="bg-white bg-opacity-95 backdrop-blur-md rounded-xl shadow-xl shadow-blue-200/50 p-8 text-center max-w-3xl w-full border border-gray-100 mb-8 transform transition-transform duration-300 hover:scale-[1.01]">
+        <h1 className="text-4xl font-extrabold text-gray-800 mb-4 tracking-tight">
+          Welcome, <span className="text-blue-600">{username || "Guest"}</span>!
         </h1>
-        <p className="text-lg text-pink-600 mb-6 font-semibold">
-          It's a lovely day to manage your Lovepedia.
+        <p className="text-lg text-gray-600 mb-6 font-medium">
+          Your dashboard provides a quick overview of your application's performance.
         </p>
-        <div className="text-6xl mb-4 animate-bounce-slow">💖✨🏠</div>
-        <p className="text-pink-500 italic">
-          "Every task is a little act of love."
-        </p>
+        <div className="text-6xl mb-4 text-blue-500">📈📊✨</div>
+        <p className="text-gray-500 italic">"Efficiency through insights, success through action."</p>
       </div>
 
-      {/* Bagian Dashboard Data */}
-      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Kartu Total Penjualan */}
-        <div className="bg-pink-300/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-pink-400/50 p-6 flex flex-col items-center justify-center border border-pink-400 transform transition-transform duration-300 hover:scale-[1.02]">
-          <h2 className="text-2xl font-bold text-white mb-3 font-['Pacifico', cursive]">Total Penjualan</h2>
-          <p className="text-5xl font-extrabold text-white animate-pulse">
-            {dashboardData.totalSales} <span className="text-xl font-normal">biji</span>
-          </p>
-          <p className="text-white/80 mt-2">✨ So lovely! ✨</p>
-        </div>
-
-        {/* Kartu Total Barang Masuk */}
-        <div className="bg-purple-300/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-purple-400/50 p-6 flex flex-col items-center justify-center border border-purple-400 transform transition-transform duration-300 hover:scale-[1.02]">
-          <h2 className="text-2xl font-bold text-white mb-3 font-['Pacifico', cursive]">Total Barang Masuk</h2>
-          <p className="text-5xl font-extrabold text-white animate-pulse">
-            {dashboardData.totalIncomingItems} <span className="text-xl font-normal">barang</span>
-          </p>
-          <p className="text-white/80 mt-2">📦 Fresh from the heart! 📦</p>
-        </div>
-
-        {/* Anda bisa menambahkan kartu dashboard lain di sini */}
-        {/*
-        <div className="bg-green-300/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-green-400/50 p-6 flex flex-col items-center justify-center border border-green-400 transform transition-transform duration-300 hover:scale-[1.02]">
-          <h2 className="text-2xl font-bold text-white mb-3 font-['Pacifico', cursive]">Pelanggan Setia</h2>
-          <p className="text-5xl font-extrabold text-white">
-            {dashboardData.totalCustomers} <span className="text-xl font-normal">hati</span>
-          </p>
-          <p className="text-white/80 mt-2">💕 Spreading love!</p>
-        </div>
-        */}
+      <div className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Card title="Total Sales" icon={MdOutlineAttachMoney} value={`${dashboardData.totalSales} items`} subtitle="Successful transactions" bgClass="from-blue-500 to-blue-700 shadow-blue-500/40" />
+        <Card title="Total Revenue" icon={MdOutlineAttachMoney} value={formatCurrency(dashboardData.revenue)} subtitle="Generated income" bgClass="from-orange-500 to-orange-700 shadow-orange-500/40" />
+        <Card title="Total Products" icon={MdOutlineInventory} value={`${dashboardData.totalProducts} SKUs`} subtitle="Items currently in stock" bgClass="from-green-500 to-green-700 shadow-green-500/40" />
+        <Card title="New Orders" icon={FaUsers} value={`${dashboardData.newOrders} today`} subtitle="Recent customer requests" bgClass="from-purple-500 to-purple-700 shadow-purple-500/40" />
       </div>
     </div>
   );

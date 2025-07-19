@@ -1,4 +1,3 @@
-// components/Popup/SuccessPopup.jsx
 import { CheckCircle2 } from "lucide-react";
 
 export default function SuccessPopup({ message, onClose }) {
