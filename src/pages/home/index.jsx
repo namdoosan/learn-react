@@ -1,128 +1,54 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import "./HomePage.css";
-
-import ActionButton from "../../components/ActionButton/ActionButton";
-import Table from "../../components/Table/Table";
-import AddContactModal from "./Modal/add";
-import EditContactModal from "./Modal/edit";
-
-import editIcon from "../../assets/edit.png";
-import deleteIcon from "../../assets/delete.png";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { MdOutlineAttachMoney, MdOutlineInventory } from "react-icons/md";
+import { FaUsers } from "react-icons/fa";
 
 export default function HomePage() {
-  const [contacts, setContacts] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
-  const [editIndex, setEditIndex] = useState(null);
-  const [form, setForm] = useState({
-    name: "",
-    age: "",
-    status: "single",
-    address: "",
-  });
-
   const [username, setUsername] = useState("");
-  const navigate = useNavigate();
   const location = useLocation();
 
+  const dashboardData = { totalSales: 1250, revenue: 752000, totalProducts: 45, newOrders: 8 };
+
   useEffect(() => {
-    if (location.state?.username) {
-      setUsername(location.state.username);
-    }
+    const storedUser = sessionStorage.getItem("username");
+    if (storedUser) setUsername(storedUser);
+    else if (location.state?.username) setUsername(location.state.username);
   }, [location.state]);
 
-  const handleLogout = () => navigate("/");
+  const formatCurrency = (amount) =>
+  
+    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0 }).format(amount);
 
-  const handleAddContact = () => {
-    setForm({ name: "", age: "", status: "single", address: "" });
-    setIsEdit(false);
-    setShowModal(true);
-  };
-
-  const handleEdit = (index) => {
-    setForm(contacts[index]);
-    setEditIndex(index);
-    setIsEdit(true);
-    setShowModal(true);
-  };
-
-  const handleDelete = (index) => {
-    if (window.confirm("Apakah yakin ingin menghapus contact ini?")) {
-      setContacts((prev) => prev.filter((_, i) => i !== index));
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSave = (e) => {
-    e.preventDefault();
-    const { name, age } = form;
-    if (!name.trim() || !age.trim()) {
-      alert("Name dan Age wajib diisi!");
-      return;
-    }
-
-    if (isEdit) {
-      setContacts((prev) => prev.map((c, i) => (i === editIndex ? form : c)));
-    } else {
-      setContacts((prev) => [...prev, form]);
-    }
-
-    setForm({ name: "", age: "", status: "single", address: "" });
-    setEditIndex(null);
-    setShowModal(false);
-  };
+  const Card = ({ title, icon: Icon, value, subtitle, bgClass }) => (
+    <div className={`bg-gradient-to-br ${bgClass} rounded-xl shadow-lg p-6 flex flex-col items-start justify-between text-white transform transition-transform duration-300 hover:scale-[1.02]`}>
+      <div className="flex items-center justify-between w-full mb-3">
+        <h2 className="text-xl font-bold">{title}</h2>
+        <Icon className="text-4xl opacity-70" />
+      </div>
+      <p className="text-4xl font-extrabold animate-pulse">{value}</p>
+      <p className="text-white/80 mt-2">{subtitle}</p>
+    </div>
+  );
 
   return (
-    <div className="home-container">
-      <h1>Selamat datang di Home, {username}!</h1>
-      <button onClick={handleLogout}>Logout</button>
-      <button className="add-btn" onClick={handleAddContact}>
-        Add Contact
-      </button>
+    <div className="flex flex-col items-center justify-center p-6 font-sans">
+      <div className="bg-white bg-opacity-95 backdrop-blur-md rounded-xl shadow-xl shadow-blue-200/50 p-8 text-center max-w-3xl w-full border border-gray-100 mb-8 transform transition-transform duration-300 hover:scale-[1.01]">
+        <h1 className="text-4xl font-extrabold text-gray-800 mb-4 tracking-tight">
+          Welcome, <span className="text-blue-600">{username || "Guest"}</span>!
+        </h1>
+        <p className="text-lg text-gray-600 mb-6 font-medium">
+          Your dashboard provides a quick overview of your application's performance.
+        </p>
+        <div className="text-6xl mb-4 text-blue-500">📈📊✨</div>
+        <p className="text-gray-500 italic">"Efficiency through insights, success through action."</p>
+      </div>
 
-      {showModal && !isEdit && (
-        <AddContactModal
-          form={form}
-          onChange={handleChange}
-          onSubmit={handleSave}
-          onClose={() => setShowModal(false)}
-        />
-      )}
-
-      {showModal && isEdit && (
-        <EditContactModal
-          form={form}
-          onChange={handleChange}
-          onSubmit={handleSave}
-          onClose={() => setShowModal(false)}
-        />
-      )}
-
-      <Table
-        columns={["No", "Name", "Age", "Status", "Address", "Action"]}
-        data={contacts}
-        renderActions={(i) => (
-          <div className="action-buttons">
-            <ActionButton
-              icon={editIcon}
-              alt="Edit"
-              title="Edit"
-              onClick={() => handleEdit(i)}
-            />
-            <ActionButton
-              icon={deleteIcon}
-              alt="Delete"
-              title="Delete"
-              onClick={() => handleDelete(i)}
-            />
-          </div>
-        )}
-      />
+      <div className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Card title="Total Sales" icon={MdOutlineAttachMoney} value={`${dashboardData.totalSales} items`} subtitle="Successful transactions" bgClass="from-blue-500 to-blue-700 shadow-blue-500/40" />
+        <Card title="Total Revenue" icon={MdOutlineAttachMoney} value={formatCurrency(dashboardData.revenue)} subtitle="Generated income" bgClass="from-orange-500 to-orange-700 shadow-orange-500/40" />
+        <Card title="Total Products" icon={MdOutlineInventory} value={`${dashboardData.totalProducts} SKUs`} subtitle="Items currently in stock" bgClass="from-green-500 to-green-700 shadow-green-500/40" />
+        <Card title="New Orders" icon={FaUsers} value={`${dashboardData.newOrders} today`} subtitle="Recent customer requests" bgClass="from-purple-500 to-purple-700 shadow-purple-500/40" />
+      </div>
     </div>
   );
 }
